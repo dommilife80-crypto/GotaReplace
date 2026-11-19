@@ -1,0 +1,2401 @@
+<!DOCTYPE html>
+<html lang="en" class="cc--darkmode">
+    <head>
+        <style data-startup-loading-critical="">
+            :root {
+                --loading-accent: #f5b53a;
+                --loading-accent-secondary: #d05cb9
+            }
+
+            html:not(.startup-ui-ready),html:not(.startup-ui-ready) body {
+                background: #121212;
+                overflow: hidden
+            }
+
+            html:not(.startup-ui-ready) body>:not(#startup-loading-screen):not(.error-banner):not(#bootstrap-failure-banner) {
+                opacity: 0!important;
+                pointer-events: none!important;
+                visibility: hidden!important
+            }
+
+            .error-banner {
+                background: #b71c1c;
+                border-bottom: 1px solid rgba(255,255,255,.24);
+                box-shadow: 0 8px 24px #00000061;
+                box-sizing: border-box;
+                color: #fff;
+                cursor: pointer;
+                font-family: Open Sans,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;
+                font-size: 14px;
+                font-weight: 600;
+                left: 0;
+                line-height: 1.45;
+                padding: calc(12px + env(safe-area-inset-top)) 20px 12px;
+                pointer-events: auto;
+                position: fixed;
+                right: 0;
+                text-align: center;
+                top: 0;
+                width: 100%;
+                z-index: 2147483647
+            }
+
+            .error-banner a {
+                color: inherit;
+                font-weight: 700;
+                pointer-events: auto;
+                text-decoration: underline;
+                text-underline-offset: 2px
+            }
+
+            .error-banner a:hover,.error-banner a:focus-visible {
+                color: #fff
+            }
+
+            .startup-loading-screen {
+                align-items: center;
+                background: #121212;
+                color: #f5f5f5;
+                display: flex;
+                font-family: Open Sans,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;
+                inset: 0;
+                justify-content: center;
+                overflow: hidden;
+                position: fixed;
+                z-index: 2147483000
+            }
+
+            .startup-loading-card {
+                align-items: center;
+                background: #2d2d2df7;
+                border: 1px solid rgba(255,255,255,.14);
+                border-radius: 20px;
+                box-shadow: 0 24px 70px #0000006b;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                max-width: calc(100vw - 32px);
+                padding: 22px 42px 26px;
+                position: relative;
+                width: 540px
+            }
+
+            .startup-loading-eyebrow {
+                color: #ffffffa3;
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: .12em
+            }
+
+            .startup-loading-logo {
+                display: block;
+                height: auto;
+                margin: 12px auto 2px;
+                max-width: min(285px,72vw);
+                width: 285px
+            }
+
+            .startup-loading-title {
+                font-size: clamp(22px,4vw,29px);
+                line-height: 1.2;
+                margin: 4px 0 7px;
+                text-align: center
+            }
+
+            .startup-loading-status {
+                color: #ffffffb8;
+                font-size: 14px;
+                margin: 0;
+                min-height: 20px;
+                text-align: center
+            }
+
+            .startup-loading-progress {
+                background: #0000004d;
+                border-radius: 999px;
+                height: 6px;
+                margin-top: 25px;
+                overflow: hidden;
+                width: min(370px,100%)
+            }
+
+            .startup-loading-progress-fill {
+                background: linear-gradient(90deg,var(--loading-accent),var(--loading-accent-secondary));
+                border-radius: inherit;
+                display: block;
+                height: 100%;
+                transform: scaleX(.28);
+                transform-origin: left center
+            }
+
+            .startup-loading-milestones {
+                display: grid;
+                gap: 14px;
+                grid-template-columns: repeat(3,minmax(0,1fr));
+                margin-top: 14px;
+                width: min(390px,100%)
+            }
+
+            .startup-loading-milestone {
+                align-items: center;
+                color: #ffffff7a;
+                display: flex;
+                font-size: 11px;
+                gap: 6px;
+                justify-content: center
+            }
+
+            .startup-loading-milestone-dot {
+                background: #fff3;
+                border-radius: 50%;
+                height: 7px;
+                width: 7px
+            }
+
+            .startup-loading-milestone[data-phase=interface] {
+                color: #ffffffeb
+            }
+
+            .startup-loading-milestone[data-phase=interface] .startup-loading-milestone-dot {
+                background: var(--loading-accent);
+                box-shadow: 0 0 0 3px #f5b53a1f
+            }
+
+            .startup-loading-hint {
+                color: #ffffff8c;
+                font-size: 11px;
+                margin: 22px 0 0;
+                text-align: center
+            }
+
+            @media(max-width: 640px) {
+                .error-banner {
+                    font-size:13px;
+                    padding-inline:14px}
+
+                .startup-loading-card {
+                    padding: 20px 22px 23px
+                }
+            }
+        </style>
+        <link rel="preload" as="image" href="./assets/images/logo.png">
+        <meta charset="UTF-8">
+        <meta name="description" content="Play Gota.io — a free browser multiplayer cell game. Eat players, gain XP, level up, and climb the leaderboard in fast, competitive matches." data-i18n-attr="content:shell.k001">
+        <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+        <meta name="robots" content="index, follow">
+        <meta name="author" content="Gota.io">
+        <meta name="theme-color" content="#0d0d0d">
+        <link rel="canonical" href="https://play.gota.io/">
+        <meta content="Gota.io" property="og:site_name">
+        <meta content="website" property="og:type">
+        <meta content="Play Gota.io — Free Browser Multiplayer Cell Game" property="og:title" data-i18n-attr="content:shell.k002">
+        <meta content="Eat other players, earn XP, and level up. Do you have what it takes to be #1?" property="og:description" data-i18n-attr="content:shell.k003">
+        <meta content="https://play.gota.io/" property="og:url">
+        <meta content="https://play.gota.io/images/gota-social-card.png" property="og:image">
+        <meta content="1200" property="og:image:width">
+        <meta content="630" property="og:image:height">
+        <meta content="Gota.io logo above the words Free browser multiplayer cell game" property="og:image:alt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@GotaIO">
+        <meta name="twitter:title" content="Play Gota.io — Free Browser Multiplayer Cell Game" data-i18n-attr="content:shell.k002">
+        <meta name="twitter:description" content="Eat other players, earn XP, and level up. Do you have what it takes to be #1?" data-i18n-attr="content:shell.k003">
+        <meta name="twitter:image" content="https://play.gota.io/images/gota-social-card.png">
+        <meta name="twitter:image:alt" content="Gota.io logo above the words Free browser multiplayer cell game">
+        <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "VideoGame",
+                "name": "Gota.io",
+                "url": "https://play.gota.io/",
+                "image": "https://play.gota.io/images/gota-social-card.png",
+                "description": "A free browser-based multiplayer cell game. Eat others, gain XP, and climb the leaderboard.",
+                "applicationCategory": "Game",
+                "applicationSubCategory": "Multiplayer cell game",
+                "operatingSystem": "Web",
+                "gamePlatform": "Web browser",
+                "genre": [
+                    "Action",
+                    "Arcade",
+                    "Multiplayer"
+                ],
+                "playMode": "MultiPlayer",
+                "isAccessibleForFree": true,
+                "author": {
+                    "@type": "Organization",
+                    "name": "Gota.io"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Gota.io"
+                },
+                "sameAs": [
+                    "https://www.youtube.com/channel/UCkjizHFZCcolEPoprLSqKUA",
+                    "https://x.com/GotaIO",
+                    "https://www.facebook.com/PlayGotaIO/",
+                    "https://gota.io/discord"
+                ]
+            }</script>
+        <style>
+            .visually-hidden {
+                position: absolute!important;
+                clip: rect(1px,1px,1px,1px);
+                clip-path: inset(50%);
+                height: 1px;
+                width: 1px;
+                overflow: hidden;
+                white-space: nowrap
+            }
+        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/balloon-css/0.5.0/balloon.min.css" integrity="sha384-CyJnqFgEb9DIlJs4VYT8nOEkp2E9KzKefSJiQCO6etnkk+Yf6Lm+0Yf17ppzwFEZ" crossorigin="anonymous" referrerpolicy="strict-origin-when-cross-origin">
+        <script type="abfc963bf54e07cb8a82f55a-text/javascript">
+            function hideErrorBanner(){try{document.getElementsByClassName("error-banner")[0].setAttribute("style","display:none;")}catch{}}document.addEventListener("click",e=>{const n=e.target;n instanceof Element&&n.closest(".error-banner")&&hideErrorBanner()})
+        </script>
+        <link rel="stylesheet" href="./lib/coloris.min.css?v=1794749832486">
+        <script type="abfc963bf54e07cb8a82f55a-text/javascript">
+            const isAipObject=i=>null!==i&&("object"==typeof i||"function"==typeof i),readAipProperty=(i,t)=>{if(isAipObject(i))try{return i[t]}catch{return}},writeAipProperty=(i,t,p)=>{if(!isAipObject(i))return!1;try{return i[t]=p,!0}catch{return!1}},existingAipTag=readAipProperty(window,"aiptag"),aiptag=isAipObject(existingAipTag)?existingAipTag:{};let aipCmd=readAipProperty(aiptag,"cmd");isAipObject(aipCmd)||(aipCmd={},writeAipProperty(aiptag,"cmd",aipCmd));for(const i of["display","player"])isAipObject(readAipProperty(aipCmd,i))||writeAipProperty(aipCmd,i,[]);writeAipProperty(aiptag,"gdprShowConsentTool",!0),writeAipProperty(aiptag,"gdprConsentToolPosition","bottom"),writeAipProperty(aiptag,"gdprShowConsentToolButton",!1),writeAipProperty(window,"aiptag",aiptag)
+        </script>
+        <script async="" src="//api.adinplay.com/libs/aiptag/pub/GOT/gota.io/tag.min.js" type="abfc963bf54e07cb8a82f55a-text/javascript"></script>
+        <title data-i18n="shell.k002">Play Gota.io — Free Browser Multiplayer Cell Game</title>
+        <script type="abfc963bf54e07cb8a82f55a-module" crossorigin src="./assets/js/CFEBHt0y.js"></script>
+        <link rel="modulepreload" crossorigin href="./assets/js/C_U2Xa4J.js">
+        <link rel="modulepreload" crossorigin href="./assets/js/CKWBsu03.js">
+        <link rel="modulepreload" crossorigin href="./assets/js/appvLw8R.js">
+        <link rel="modulepreload" crossorigin href="./assets/js/CcWEjvQM.js">
+        <link rel="modulepreload" crossorigin href="./assets/js/B_LolkUa.js">
+        <link rel="modulepreload" crossorigin href="./assets/js/WxvWQFDR.js">
+        <link rel="modulepreload" crossorigin href="./assets/js/25_10HND.js">
+        <link rel="stylesheet" crossorigin href="./assets/D1SJugmb.css">
+    </head>
+    <body ondragstart="if (!window.__cfRLUnblockHandlers) return false; return!1" ondrop="if (!window.__cfRLUnblockHandlers) return false; return!1" data-cf-modified-abfc963bf54e07cb8a82f55a-="">
+        <div id="startup-loading-screen" class="startup-loading-screen" data-phase="interface" role="status" aria-live="polite" aria-busy="true">
+            <div class="startup-loading-ambient" aria-hidden="true"></div>
+            <div class="startup-loading-card">
+                <span class="startup-loading-eyebrow" aria-hidden="true">GOTA.IO CLIENT</span>
+                <img class="startup-loading-logo" src="./assets/images/logo.png" width="625" height="237" fetchpriority="high" alt="Gota.io" decoding="async" draggable="false">
+                <h1 class="startup-loading-title">Loading Gota.io</h1>
+                <p class="startup-loading-status">Loading interface…</p>
+                <div class="startup-loading-progress" aria-hidden="true">
+                    <span class="startup-loading-progress-fill"></span>
+                </div>
+                <div class="startup-loading-milestones">
+                    <span class="startup-loading-milestone" data-phase="interface">
+                        <span class="startup-loading-milestone-dot" aria-hidden="true"></span>
+                        <span class="startup-loading-milestone-label">Interface</span>
+                    </span>
+                    <span class="startup-loading-milestone" data-phase="renderer">
+                        <span class="startup-loading-milestone-dot" aria-hidden="true"></span>
+                        <span class="startup-loading-milestone-label">Renderer</span>
+                    </span>
+                    <span class="startup-loading-milestone" data-phase="servers">
+                        <span class="startup-loading-milestone-dot" aria-hidden="true"></span>
+                        <span class="startup-loading-milestone-label">Servers</span>
+                    </span>
+                </div>
+                <p class="startup-loading-hint">The menu opens as soon as the client is usable.</p>
+            </div>
+        </div>
+        <h1 class="visually-hidden" data-i18n="shell.k002">Play Gota.io — Free Browser Multiplayer Cell Game</h1>
+        <p class="visually-hidden" data-i18n="shell.k071">Join fast-paced matches, eat other players to grow, unlock levels, and compete to reach #1.</p>
+        <div class="error-banner" style="display: none" role="alert" aria-live="assertive">
+            <span data-i18n-html="shell.k072">
+                An error has occured. Try a hard refresh with CTRL + F5 or check the browser console for more information. If it keeps happening, contact us on <a href="https://gota.io/discord" data-i18n="shell.k073">our Discord</a> (click to close this message) 
+            </span>
+            <code class="error-banner-detail" style="display: block; user-select: text; overflow-wrap: anywhere"></code>
+        </div>
+        <div id="canvas-container">
+            <div id="canvas-background"></div>
+            <canvas id="canvas"></canvas>
+        </div>
+        <div class="hud-panel">
+            <div class="top-left ui-scale">
+                <div id="score-panel" class="ui-pane interface-color" data-hud-pane="score">
+                    <p id="pId" data-i18n-html="shell.k074">
+                        ID: <span>0</span>
+                    </p>
+                    <p id="pServer" data-i18n-html="shell.k075">
+                        Server: <span data-i18n="shell.k076">None</span>
+                    </p>
+                    <p id="pFps" data-i18n-html="shell.k077">
+                        FPS: <span>0</span>
+                    </p>
+                    <p id="pPing" data-i18n-html="shell.k078">
+                        Ping: <span data-i18n="shell.k079">0ms</span>
+                    </p>
+                    <p id="pMass" data-i18n-html="shell.k080">
+                        Mass: <span>0</span>
+                    </p>
+                    <p id="pScore" data-i18n-html="shell.k081">
+                        Score: <span>0</span>
+                    </p>
+                    <p id="pCells" data-i18n-html="shell.k082">
+                        Cells: <span data-i18n="shell.k083">0/16</span>
+                    </p>
+                    <p id="pMouse" class="text-red d-none" data-i18n="shell.k084">MOUSE FROZEN</p>
+                    <p id="pLineSplit" class="text-aqua d-none">→</p>
+                    <div id="multibox-control-panel" style="display: none">
+                        <div id="multibox-hud">
+                            <div id="multibox-p1" class="multibox-player">
+                                <span class="player-indicator" data-i18n="shell.k085">P1</span>
+                                <span class="player-name" id="multibox-p1-name"></span>
+                            </div>
+                            <div id="multibox-p2" class="multibox-player">
+                                <span class="player-indicator" data-i18n="shell.k086">P2</span>
+                                <span class="player-name" id="multibox-p2-name"></span>
+                            </div>
+                            <span id="multibox-switch-hint" title="Press TAB to switch" data-i18n-attr="title:shell.k005" data-i18n="shell.k087">↔</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="party-panel" class="ui-pane interface-color hud-panel" data-hud-pane="party" style="display: none">
+                    <p id="party-header" data-i18n="shell.k088">Party</p>
+                    <canvas id="party-canvas"></canvas>
+                </div>
+            </div>
+            <div class="top-right ui-scale">
+                <div id="leaderboard-panel" class="ui-pane interface-color" data-hud-pane="leaderboard">
+                    <p class="lh" id="leaderboard-header" data-i18n="shell.k089">Leaderboard</p>
+                    <canvas id="leaderboard-canvas" width="10" height="10"></canvas>
+                    <div id="scrimmage-btn-leave" style="display: none">
+                        <button type="button" id="btn-leave-match" class="gota-btn" data-i18n="shell.k090">Leave</button>
+                    </div>
+                </div>
+                <div id="extra-panel" class="ui-pane interface-color" data-hud-pane="extra">
+                    <p id="extra-reset-timer">
+                        <span data-i18n="shell.k407">Reset:</span>
+                        <span id="resetTime" data-i18n="shell.k091">00:00</span>
+                    </p>
+                    <p id="extra-spectators">
+                        <span data-i18n="shell.k408">Spectators:</span>
+                        <span id="spectatorCount">0</span>
+                    </p>
+                    <p id="extra-respawn-cooldown">
+                        <span data-i18n="shell.k409">Respawn:</span>
+                        <span id="respawnCooldown" data-i18n="shell.k091">00:00</span>
+                    </p>
+                </div>
+            </div>
+            <div id="chat-panel" class="ui-pane ui-scale" data-hud-pane="chat">
+                <div id="chat-tab-container" class="interface-color" data-hud-surface="chat"></div>
+                <div id="chat-container" class="interface-color" data-hud-surface="chat"></div>
+                <div id="chat-components">
+                    <div id="chat-resize"></div>
+                    <input id="chat-input" autocomplete="off" aria-label="Chat message" data-i18n-attr="aria-label:shell.k006">
+                    <button type="button" id="chat-emote-btn" aria-label="Open emotes" data-i18n-attr="aria-label:shell.k007"></button>
+                    <div id="emote-panel" class="ui-pane interface-color" data-hud-surface="chat-overlay">
+                        <h3 data-i18n="shell.k092">Emotes</h3>
+                        <ul class="emote-list"></ul>
+                        <h3 data-i18n="shell.k093">Gifs</h3>
+                        <ul class="gif-list"></ul>
+                    </div>
+                    <div id="autocomplete-panel" class="ui-pane interface-color" data-hud-surface="chat-overlay"></div>
+                </div>
+            </div>
+            <div id="minimap-panel" class="ui-pane interface-color ui-scale" data-hud-pane="minimap">
+                <div id="minimap-coordinates" data-i18n-html="shell.k410">&nbsp;</div>
+                <canvas id="minimap-canvas" width="250" height="250"></canvas>
+            </div>
+        </div>
+        <div id="preroll"></div>
+        <div id="main" class="main" data-side-panel="main-servers">
+            <div class="main-panel-wrapper">
+                <div class="main-left main-divider">
+                    <div id="main-rb" class="main-panel">
+                        <div class="main-rb-title" data-i18n="shell.k094">Advertisement</div>
+                        <div id="inner-rb">
+                            <div id="supporter-message" style="display: none; text-align: center; padding: 10px 8px">
+                                <div style="font-size: 13px; line-height: 1.35; opacity: 0.95" data-i18n="shell.k095">Your locked name helps keep Gota.io running ad‑free for you.</div>
+                            </div>
+                            <div id="ad-wrapper" style="position: relative">
+                                <div id="adblock-fallback" style="display: none">
+                                    <a href="https://shop.gota.io" target="_blank" rel="noopener">
+                                        <img src="./assets/images/adblock_transparent.png" draggable="false" alt="Support us by disabling your adblocker" decoding="async" style="max-width: 100%; height: auto; cursor: pointer" data-i18n-attr="alt:shell.k008">
+                                    </a>
+                                </div>
+                                <div id="GOT_gota-io_336x280" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="main-account" class="main-panel">
+                        <div class="loader" id="account-loader" role="status" aria-live="polite" data-i18n="shell.k096">Loading...</div>
+                        <div id="no_cookie_consent" class="main-mini-container" style="display: none">
+                            <h1 data-i18n="shell.k097">Gota.io Account</h1>
+                            <p data-i18n-html="shell.k098">
+                                You have not accepted the use of cookies.<br>
+                                <span data-i18n="shell.k428">Without cookies we cannot provide account features.</span>
+                                <br>
+                                <br>
+                                <span data-i18n="shell.k429">You can change your cookie preference in our cookie consent tool at the bottom!</span>
+                            </p>
+                        </div>
+                        <div id="guest" class="main-mini-container" style="display: none">
+                            <h1 data-i18n="shell.k097">Gota.io Account</h1>
+                            <p data-i18n="shell.k099">Log in to gain access to exclusive features like profiles, social, titles, and locked names!</p>
+                            <button type="button" id="account-login" class="gota-btn" data-i18n="shell.k100">Login</button>
+                        </div>
+                        <div id="authed" style="display: none">
+                            <div id="userinfo">
+                                <img id="account-avatar" class="avatar" alt="">
+                                <div id="username-container">
+                                    <span id="account-username"></span>
+                                    <span id="account-level"></span>
+                                    <div class="xp-meter">
+                                        <span style="width: 0%"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="account-actions">
+                                <button type="button" id="account-profile" class="gota-btn" data-i18n="shell.k101">Profile</button>
+                                <button type="button" id="account-social" class="gota-btn" data-i18n="shell.k102">Social</button>
+                                <button type="button" id="account-shop" class="gota-btn" data-i18n="shell.k103">Shop</button>
+                                <button type="button" id="account-logout" class="gota-btn" data-i18n="shell.k104">Logout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content main-divider main-panel">
+                    <div class="main-top">
+                        <img id="logo" src="./assets/images/logo.png" width="625" height="237" fetchpriority="high" decoding="async" draggable="false" alt="Gota.io" data-i18n-attr="alt:shell.k004">
+                        <span class="main-version">
+                            <span data-i18n-html="shell.k411">Client version:&nbsp;</span>
+                            <span id="client-version" aria-live="polite"></span>
+                        </span>
+                    </div>
+                    <div class="main-mid menu-sub-bg">
+                        <input type="text" id="name-box" maxlength="20" class="gota-input" placeholder="Name" aria-label="Player name" data-i18n-attr="aria-label:shell.k009;placeholder:shell.k010">
+                        <div class="main-input-btns">
+                            <button type="button" id="btn-play" class="gota-menu-btn" data-i18n="shell.k106">Play</button>
+                            <button type="button" id="btn-spec" class="gota-menu-btn" data-i18n="shell.k107">Spectate</button>
+                        </div>
+                        <div class="main-bottom interface-color">
+                            <div class="main-bottom-left">
+                                <button type="button" id="btn-servers" class="gota-btn bottom-btn" data-i18n="shell.k108">Servers</button>
+                                <button type="button" id="btn-options" class="gota-btn bottom-btn" data-i18n="shell.k109">Options</button>
+                                <button type="button" id="btn-hotkeys" class="gota-btn bottom-btn" data-i18n="shell.k110">Hotkeys</button>
+                                <button type="button" id="btn-themes" class="gota-btn bottom-btn" data-i18n="shell.k111">Theme</button>
+                                <button type="button" id="btn-cellpanel" class="gota-btn bottom-btn" data-i18n="shell.k112">Cell Panel</button>
+                            </div>
+                            <div class="main-bottom-right">
+                                <button type="button" id="btn-multibox" class="gota-btn bottom-btn" style="display: none" aria-label="Multibox" data-i18n-attr="aria-label:shell.k011" data-i18n="shell.k011">Multibox</button>
+                                <button type="button" id="btn-titles" class="gota-btn bottom-btn" data-i18n="shell.k113">Titles</button>
+                                <button type="button" id="btn-changelog" class="gota-btn bottom-btn" data-i18n="shell.k114">Changelog</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-bottom-links">
+                        <a href="https://www.youtube.com/channel/UCkjizHFZCcolEPoprLSqKUA?sub_confirmation=1" target="_blank" rel="noopener" class="fg-interface-color" aria-label="Visit Gota.io on YouTube" data-i18n-attr="aria-label:shell.k012">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"></path>
+                            </svg>
+                        </a>
+                        <a href="https://x.com/share?url=https://s5frq.app.goo.gl/kK5p&amp;via=GotaIO&amp;text=Have%20you%20played%20this%20addictive%20game%20yet%3F%20Try%20today%21" target="_blank" rel="noopener" class="fg-interface-color" aria-label="Share Gota.io on X" data-i18n-attr="aria-label:shell.k013">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"></path>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//www.facebook.com/PlayGotaIO/" target="_blank" rel="noopener" class="fg-interface-color" aria-label="Share Gota.io on Facebook" data-i18n-attr="aria-label:shell.k014">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"></path>
+                            </svg>
+                        </a>
+                        <a href="https://gota.io/discord" target="_blank" rel="noopener" class="fg-interface-color" aria-label="Join the Gota.io Discord" data-i18n-attr="aria-label:shell.k015">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="policyLinks interface-color" data-i18n-html="shell.k115">
+                        <a href="https://gota.io/policies/privacy.html" data-i18n="shell.k116">Privacy Policy</a>| <a href="https://gota.io/policies/cookies.html" data-i18n="shell.k117">Cookie Policy</a>| <a href="#" data-i18n-action="ad-privacy" data-i18n="shell.k118">Ad Privacy Settings</a>
+                    </div>
+                    <div class="main-language-picker" data-language-picker>
+                        <span id="language-picker-label" class="visually-hidden" data-i18n="runtime.language.label">Interface language</span>
+                        <div id="sLocaleCustom" class="language-picker-custom" hidden>
+                            <button id="sLocaleTrigger" type="button" class="language-picker-trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="sLocalePopover" aria-labelledby="language-picker-label sLocaleValue">
+                                <span class="language-picker-trigger-icon" aria-hidden="true">🌐</span>
+                                <span id="sLocaleValue" data-i18n="runtime.language.auto">Auto</span>
+                                <span class="language-picker-trigger-chevron" aria-hidden="true">⌄</span>
+                            </button>
+                            <div id="sLocalePopover" class="language-picker-popover" role="dialog" aria-labelledby="language-picker-label" hidden>
+                                <label for="sLocaleSearch" class="visually-hidden" data-i18n="runtime.language.searchLabel">Search languages</label>
+                                <input id="sLocaleSearch" type="search" autocomplete="language" placeholder="Search languages…" aria-label="Search languages" data-i18n-attr="placeholder:runtime.language.searchPlaceholder;aria-label:runtime.language.searchLabel">
+                                <div id="sLocaleOptions" class="language-picker-options" role="listbox" aria-labelledby="language-picker-label"></div>
+                                <p id="sLocaleEmpty" class="language-picker-empty" data-i18n="runtime.language.noMatches" hidden>No languages match that search.</p>
+                            </div>
+                        </div>
+                        <select id="sLocale" aria-labelledby="language-picker-label" aria-label="Interface language" data-i18n-attr="aria-label:runtime.language.label">
+                            <option value="auto" data-i18n-flag="🌐" data-i18n="runtime.language.auto">🌐 Auto</option>
+                            <option value="en" data-i18n-flag="🇬🇧" data-i18n="runtime.language.english">🇬🇧 English</option>
+                            <option value="fr" data-i18n-flag="🇫🇷" data-i18n="runtime.language.french">🇫🇷 Français</option>
+                            <option value="pt-BR" data-i18n-flag="🇧🇷" data-i18n="runtime.language.brazilianPortuguese">🇧🇷 Português (Brasil)</option>
+                            <option value="en-SG" data-i18n-flag="🇸🇬" data-i18n="runtime.language.singaporeEnglish">🇸🇬 English (Singapore)</option>
+                            <option value="zh-CN" data-i18n-flag="🇨🇳" data-i18n="runtime.language.simplifiedChinese">🇨🇳 简体中文</option>
+                            <option value="zh-TW" data-i18n-flag="🇹🇼" data-i18n="runtime.language.traditionalChinese">🇹🇼 繁體中文</option>
+                            <option value="es" data-i18n-flag="🇪🇸" data-i18n="runtime.language.spanish">🇪🇸 Español</option>
+                            <option value="de" data-i18n-flag="🇩🇪" data-i18n="runtime.language.german">🇩🇪 Deutsch</option>
+                            <option value="ja" data-i18n-flag="🇯🇵" data-i18n="runtime.language.japanese">🇯🇵 日本語</option>
+                            <option value="ko" data-i18n-flag="🇰🇷" data-i18n="runtime.language.korean">🇰🇷 한국어</option>
+                            <option value="it" data-i18n-flag="🇮🇹" data-i18n="runtime.language.italian">🇮🇹 Italiano</option>
+                            <option value="nl" data-i18n-flag="🇳🇱" data-i18n="runtime.language.dutch">🇳🇱 Nederlands</option>
+                            <option value="pl" data-i18n-flag="🇵🇱" data-i18n="runtime.language.polish">🇵🇱 Polski</option>
+                            <option value="tr" data-i18n-flag="🇹🇷" data-i18n="runtime.language.turkish">🇹🇷 Türkçe</option>
+                            <option value="uk" data-i18n-flag="🇺🇦" data-i18n="runtime.language.ukrainian">🇺🇦 Українська</option>
+                            <option value="fil" data-i18n-flag="🇵🇭" data-i18n="runtime.language.filipino">🇵🇭 Filipino</option>
+                            <option value="cs" data-i18n-flag="🇨🇿" data-i18n="runtime.language.czech">🇨🇿 Čeština</option>
+                            <option value="ar" data-i18n-flag="🇸🇦" data-i18n="runtime.language.arabic">🇸🇦 العربية</option>
+                            <option value="ro" data-i18n-flag="🇷🇴" data-i18n="runtime.language.romanian">🇷🇴 Română</option>
+                            <option value="th" data-i18n-flag="🇹🇭" data-i18n="runtime.language.thai">🇹🇭 ไทย</option>
+                            <option value="vi" data-i18n-flag="🇻🇳" data-i18n="runtime.language.vietnamese">🇻🇳 Tiếng Việt</option>
+                            <option value="id" data-i18n-flag="🇮🇩" data-i18n="runtime.language.indonesian">🇮🇩 Bahasa Indonesia</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="main-right" class="main-divider main-panel">
+                    <div id="main-servers" class="main-right-panel" style="display: block">
+                        <div class="title-text menu-title" data-i18n="shell.k108">Servers</div>
+                        <div class="server-container">
+                            <ul id="server-tab-container" role="tablist" aria-orientation="horizontal">
+                                <li region="eu" id="server-tab-eu" class="server-tab server-active" role="tab" tabindex="0" aria-selected="true" aria-controls="servers-eu" title="Europe" data-i18n-attr="title:shell.k016" data-i18n-html="shell.k119">
+                                    <span data-i18n="shell.k016">Europe</span>
+                                </li>
+                                <li region="na" id="server-tab-na" class="server-tab" role="tab" tabindex="0" aria-selected="false" aria-controls="servers-na" title="North America" data-i18n-attr="title:shell.k017" data-i18n-html="shell.k120">
+                                    <span data-i18n="shell.k017">North America</span>
+                                </li>
+                                <li region="ap" id="server-tab-ap" class="server-tab server-tab-disabled" role="tab" tabindex="-1" aria-selected="false" aria-controls="servers-ap" title="Asia Pacific" aria-disabled="true" data-i18n-attr="title:shell.k018" data-i18n-html="shell.k121">
+                                    <span data-i18n="shell.k018">Asia Pacific</span>
+                                </li>
+                            </ul>
+                            <div id="server-content">
+                                <div id="servers-eu" role="tabpanel" aria-labelledby="server-tab-eu" style="display: block">
+                                    <table class="server-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="server-table-name" data-i18n-html="shell.k122">
+                                                    <span data-i18n="shell.k010">Name</span>
+                                                </th>
+                                                <th class="server-table-players" data-i18n-html="shell.k123">
+                                                    <span data-i18n="shell.k124">Players</span>
+                                                </th>
+                                                <th class="server-table-mode" data-i18n-html="shell.k125">
+                                                    <span data-i18n="shell.k126">Gamemode</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="servers-body-eu"></tbody>
+                                    </table>
+                                </div>
+                                <div id="servers-na" role="tabpanel" aria-labelledby="server-tab-na" style="display: none">
+                                    <table class="server-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="server-table-name" data-i18n-html="shell.k122">
+                                                    <span data-i18n="shell.k010">Name</span>
+                                                </th>
+                                                <th class="server-table-players" data-i18n-html="shell.k123">
+                                                    <span data-i18n="shell.k124">Players</span>
+                                                </th>
+                                                <th class="server-table-mode" data-i18n-html="shell.k125">
+                                                    <span data-i18n="shell.k126">Gamemode</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="servers-body-na"></tbody>
+                                    </table>
+                                </div>
+                                <div id="servers-ap" role="tabpanel" aria-labelledby="server-tab-ap" style="display: none">
+                                    <table class="server-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="server-table-name" data-i18n-html="shell.k122">
+                                                    <span data-i18n="shell.k010">Name</span>
+                                                </th>
+                                                <th class="server-table-players" data-i18n-html="shell.k123">
+                                                    <span data-i18n="shell.k124">Players</span>
+                                                </th>
+                                                <th class="server-table-mode" data-i18n-html="shell.k125">
+                                                    <span data-i18n="shell.k126">Gamemode</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="servers-body-ap"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="main-options" class="main-right-panel" style="display: none">
+                        <div class="title-text menu-title" data-i18n="shell.k109">Options</div>
+                        <div class="options-container">
+                            <table class="options-table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="privacy" data-i18n="shell.k127">Privacy</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4">
+                                            <button type="button" id="cc_openPreferences" class="gota-btn" data-i18n="shell.k128">Cookie settings</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k131">Show profile on global leaderboards</td>
+                                        <td>
+                                            <input type="checkbox" id="cGlobalLeaderboard" disabled="true">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="performance" data-i18n="shell.k132">Performance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k133">Quality</td>
+                                        <td>
+                                            <select id="sQuality">
+                                                <option value="ULTRA" data-i18n="shell.k134">Ultra</option>
+                                                <option value="HIGH" data-i18n="shell.k135">High</option>
+                                                <option value="MEDIUM" data-i18n="shell.k136">Medium</option>
+                                                <option value="LOW" data-i18n="shell.k137">Low</option>
+                                                <option value="VERYLOW" data-i18n="shell.k138">Very Low</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k139">Renderer</td>
+                                        <td>
+                                            <select id="sRenderType">
+                                                <option value="AUTO" data-i18n="shell.k140">Auto</option>
+                                                <option value="WEBGPU" data-i18n="shell.k140a">WebGPU</option>
+                                                <option value="WEBGL" data-i18n="shell.k141">WebGl</option>
+                                                <option value="CANVAS" data-i18n="shell.k142">Canvas</option>
+                                            </select>
+                                            <span id="renderer-active-status" class="renderer-active-status" aria-live="polite"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k143">Disable Anti Aliasing</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cDisableAA">
+                                        </td>
+                                    </tr>
+                                    <tr id="performance-refresh" style="display: none">
+                                        <td colspan="4" class="red" data-i18n="shell.k144">Refresh Required!</td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="rendering" data-i18n="shell.k145">Rendering</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k146">Show Border</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cShowBorder">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k147">Hide Food</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cHideFood">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k148">Transparent Cells</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cTransCells">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k149">Enable Auto Name Hiding</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cEnableAutoNameHiding">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k150">Disable Auto Food Hiding</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cDisableAutoFoodHiding">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k151">Enable Auto Skin Hiding</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cEnableAutoSkinHiding">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k152">Name Outlines</td>
+                                        <td>
+                                            <select id="sTextOutlines">
+                                                <option value="THICK" data-i18n="shell.k153">Thick</option>
+                                                <option value="THIN" data-i18n="shell.k154">Thin</option>
+                                                <option value="NONE" data-i18n="shell.k155">Off</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k156">Show Names</td>
+                                        <td>
+                                            <select id="sShowNames">
+                                                <option value="ALL" data-i18n="shell.k157">All</option>
+                                                <option value="PARTY" data-i18n="shell.k088">Party</option>
+                                                <option value="SELF" data-i18n="shell.k158">Self</option>
+                                                <option value="NONE" data-i18n="shell.k076">None</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k159">Show Skins</td>
+                                        <td>
+                                            <select id="sShowSkins">
+                                                <option value="ALL" data-i18n="shell.k157">All</option>
+                                                <option value="PARTY" data-i18n="shell.k088">Party</option>
+                                                <option value="SELF" data-i18n="shell.k158">Self</option>
+                                                <option value="NONE" data-i18n="shell.k076">None</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k160">Show Mass</td>
+                                        <td>
+                                            <select id="sShowMass">
+                                                <option value="SELF" data-i18n="shell.k158">Self</option>
+                                                <option value="PARTY" data-i18n="shell.k088">Party</option>
+                                                <option value="ALL" data-i18n="shell.k157">All</option>
+                                                <option value="NONE" data-i18n="shell.k076">None</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k161">Mass Type</td>
+                                        <td>
+                                            <select id="sMassType">
+                                                <option value="DEFAULT" data-i18n="shell.k162">Default</option>
+                                                <option value="SHORT" data-i18n="shell.k163">Short</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="camera" data-i18n="shell.k164">Camera</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k165">Disable Auto Zoom</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cDisableAutoZoom">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k166">Camera Focus</td>
+                                        <td>
+                                            <select id="sCameraFocus"></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="overflow-x: visible" data-i18n="shell.k167">Camera Delay:&nbsp;</td>
+                                        <td colspan="2">
+                                            <input type="range" id="rCameraDelay">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="overflow-x: visible" data-i18n="shell.k168">Zoom Delay:&nbsp;</td>
+                                        <td colspan="2">
+                                            <input type="range" id="rZoomDelay">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="overflow-x: visible" data-i18n="shell.k169">Zoom Speed:&nbsp;</td>
+                                        <td colspan="2">
+                                            <input type="range" id="rZoomMult">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="general" data-i18n="shell.k170">General</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k171">Auto Respawn</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cAutoRespawn">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k172">Silent Login</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cSilentLogin">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k173">Auto Decline Party Invites</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cAutoDecline">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-balloon="Stop ejecting mass when the window loses focus." data-balloon-pos="up" data-balloon-length="fit" data-i18n-attr="data-balloon:shell.k019" data-i18n="shell.k174">Disable Persistent Mass Ejecting</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cDisablePersistEjectMass">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="overflow-x: visible" data-balloon="Seconds before reconnecting after disconnect (Default: 5)" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k020">
+                                            <span data-i18n="shell.k412">Reconnect Period:</span>
+                                            <input class="options-input" id="reconnectPeriod" style="float: none">
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rReconnectPeriod" min="0" max="10" value="5" step="1">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="overflow-x: visible" data-balloon="Default: 90" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k021">
+                                            <span data-i18n="shell.k413">Animation Delay:</span>
+                                            <input class="options-input" id="animationDelay" style="float: none">
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rAnimationDelay" min="5" max="250" value="90" step="1">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="overflow-x: visible" data-balloon="Default: 100" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k022">
+                                            <span data-i18n="shell.k414">View Distance:</span>
+                                            <input class="options-input" id="viewDistance" style="float: none">
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rViewDistance" min="50" max="150" value="100" step="1">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="ui" data-i18n="shell.k175">UI</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k176">Hide Minimap</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cHideMinimap">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k177">Hide Leaderboard</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cHideLeaderboard">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k178">Hide Sub-Leaderboard</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cHideExtraPanel">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k179">Darker Bots</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cDarkerBots">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k180">Show Coordinates</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cShowCoordinates">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <span data-i18n="shell.k415">UI Scale:</span>
+                                            <input id="uiScale" class="options-input" style="float: none">%
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rUiScale" min="0.50" max="1.25" value="1.00" step="0.01">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="chat-panel" data-i18n="shell.k181">Chat Panel</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k182">Hide Chat</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cHideChat">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k183">Resizable Chat</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cResizableChat">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k184">Show Chat IDs</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cShowChatIds">
+                                        </td>
+                                    </tr>
+                                    <tr id="opt_colored_ids">
+                                        <td colspan="3" data-i18n="shell.k185">Colored Chat IDs</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cColoredChatIds">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a id="aEditChatTabs" href="#" data-i18n="shell.k186">Edit Chat Tabs</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="score-panel" data-i18n="shell.k187">Score Panel</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k188">Style</td>
+                                        <td>
+                                            <select id="sScorePanel">
+                                                <option value="0" data-i18n="shell.k189">Hidden</option>
+                                                <option value="1" data-i18n="shell.k190">Horizontal</option>
+                                                <option value="2" data-i18n="shell.k191">Vertical</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k192">Hide Colored Ping</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cColoredPing">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k193">Hide Colored Cell Count</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cColoredCellCount">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k194">Hide Party Panel</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cHidePartyPanel">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="streamer" data-i18n="shell.k195">Streamer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k196">Hide ID</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cHideId">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k197">Hide Server</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cHideServer">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="options-table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="import-export" data-i18n="shell.k198">Import / Export</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            <button type="button" class="gota-btn" id="btn-options-import" data-i18n="shell.k199">Import</button>
+                                        </td>
+                                        <td colspan="2">
+                                            <button type="button" class="gota-btn" id="btn-options-export" data-i18n="shell.k200">Export</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <input id="options-import" type="file" accept=".json,application/json" style="display: none">
+                        </div>
+                    </div>
+                    <div id="main-multibox" class="main-right-panel" style="display: none">
+                        <div class="title-text menu-title" data-i18n="shell.k011">Multibox</div>
+                        <div class="options-container">
+                            <table class="options-table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="multibox-session" data-i18n="shell.k202">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3">
+                                            <span id="multibox-status" class="multibox-status-badge" data-i18n="shell.k155">Off</span>
+                                        </td>
+                                        <td>
+                                            <button type="button" id="btn-multibox-toggle" class="gota-btn" aria-labelledby="btn-multibox-toggle" data-i18n="shell.k203">Enable Multibox</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="multibox-p2" data-i18n="multiboxUi.status.player2">Player 2</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k206">P2 name</td>
+                                        <td>
+                                            <input type="text" id="multibox-name-box" maxlength="50" class="gota-input">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="multibox-display" data-i18n="optionsPanel.sections.multiboxDisplay.title">Display</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k209">Minimap marker</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cShowMultiboxOnMinimap" checked="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k210">Minimap names</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cShowMultiboxNamesOnMinimap">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k211">Leaderboard tags</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cMultiboxLeaderboardIndicators">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k215">Show mass on P2</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cShowMassSecondary">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="multibox-switching" data-i18n="optionsPanel.sections.multiboxSwitching.title">Switching</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4">
+                                            <span id="multibox-camera-note" data-i18n="shell.k216">Tab swaps camera and controls between P1 and P2.</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k212">Disable auto switch on death</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cMultiboxDisableAutoSwitchOnDeath">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k213">Instant Tab camera</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cMultiboxNoCameraDelayOnSwitch">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k214">Independent zoom</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cMultiboxIndependentZoom" checked="">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="main-hotkeys" class="main-right-panel" style="display: none">
+                        <div class="title-text menu-title" data-i18n="shell.k110">Hotkeys</div>
+                        <div class="options-container">
+                            <table class="options-table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="keybinds" data-i18n="shell.k217">Keybinds</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k218">Context Menu</td>
+                                        <td>
+                                            <button type="button" id="kContextMenu" class="keybinds-btn" aria-label="Set context menu keybind" data-i18n-attr="aria-label:shell.k025"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k219">Toggle Spectate Mode</td>
+                                        <td>
+                                            <button type="button" id="kToggleSpec" class="keybinds-btn" aria-label="Set spectate toggle keybind" data-i18n-attr="aria-label:shell.k026"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k220">Respawn</td>
+                                        <td>
+                                            <button type="button" id="kRespawn" class="keybinds-btn" aria-label="Set respawn keybind" data-i18n-attr="aria-label:shell.k027"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k221">Eject Mass</td>
+                                        <td>
+                                            <button type="button" id="kEjectMass" class="keybinds-btn" aria-label="Set eject mass keybind" data-i18n-attr="aria-label:shell.k028"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k065">Split</td>
+                                        <td>
+                                            <button type="button" id="kSplit" class="keybinds-btn" aria-label="Set split keybind" data-i18n-attr="aria-label:shell.k029"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k222">Double Split (4x)</td>
+                                        <td>
+                                            <button type="button" id="kDoubleSplit" class="keybinds-btn" aria-label="Set double split keybind" data-i18n-attr="aria-label:shell.k030"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k223">Triple Split (8x)</td>
+                                        <td>
+                                            <button type="button" id="kTripleSplit" class="keybinds-btn" aria-label="Set triple split keybind" data-i18n-attr="aria-label:shell.k031"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k224">Quad Split (16x)</td>
+                                        <td>
+                                            <button type="button" id="kQuadSplit" class="keybinds-btn" aria-label="Set quadruple split keybind" data-i18n-attr="aria-label:shell.k032"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k225">Quintuple Split (32x)</td>
+                                        <td>
+                                            <button type="button" id="kSplit32" class="keybinds-btn" aria-label="Set quintuple split keybind" data-i18n-attr="aria-label:shell.k033"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k226">Sextuple Split (64x)</td>
+                                        <td>
+                                            <button type="button" id="kHexaSplit" class="keybinds-btn" aria-label="Set sextuple split keybind" data-i18n-attr="aria-label:shell.k034"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k227">Septuple Split (128x)</td>
+                                        <td>
+                                            <button type="button" id="kSplit128" class="keybinds-btn" aria-label="Set septuple split keybind" data-i18n-attr="aria-label:shell.k035"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k228">Octuple Split (256x)</td>
+                                        <td>
+                                            <button type="button" id="kSplit256" class="keybinds-btn" aria-label="Set octuple split keybind" data-i18n-attr="aria-label:shell.k036"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k229">Freeze Mouse (Toggle)</td>
+                                        <td>
+                                            <button type="button" id="kFreezeMouse" class="keybinds-btn" aria-label="Set freeze mouse toggle keybind" data-i18n-attr="aria-label:shell.k037"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k230">Freeze Mouse (Hold)</td>
+                                        <td>
+                                            <button type="button" id="kFreezeMouseHold" class="keybinds-btn" aria-label="Set freeze mouse hold keybind" data-i18n-attr="aria-label:shell.k038"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k231">Line Split (Hold)</td>
+                                        <td>
+                                            <button type="button" id="kLineSplit" class="keybinds-btn" aria-label="Set line split hold keybind" data-i18n-attr="aria-label:shell.k039"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k232">Line Split (Toggle)</td>
+                                        <td>
+                                            <button type="button" id="kLineSplitToggle" class="keybinds-btn" aria-label="Set line split toggle keybind" data-i18n-attr="aria-label:shell.k040"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k233">Multibox Switch (Tab)</td>
+                                        <td>
+                                            <button type="button" id="kMultiboxSwitch" class="keybinds-btn" aria-label="Set multibox switch keybind" data-i18n-attr="aria-label:shell.k041"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k433">Multibox Toggle</td>
+                                        <td>
+                                            <button type="button" id="kMultiboxToggle" class="keybinds-btn" aria-label="Set multibox toggle keybind" data-i18n-attr="aria-label:shell.k045a"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k234">Cycle Mass Display</td>
+                                        <td>
+                                            <button type="button" id="kToggleMassShow" class="keybinds-btn" aria-label="Set cycle mass display keybind" data-i18n-attr="aria-label:shell.k042"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k235">Cycle Skins Display</td>
+                                        <td>
+                                            <button type="button" id="kToggleSkinsShow" class="keybinds-btn" aria-label="Set cycle skins display keybind" data-i18n-attr="aria-label:shell.k043"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k236">Cycle Names Display</td>
+                                        <td>
+                                            <button type="button" id="kToggleNamesShow" class="keybinds-btn" aria-label="Set cycle names display keybind" data-i18n-attr="aria-label:shell.k044"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <button type="button" id="btn-reset-keybinds" class="gota-btn" data-i18n="shell.k237">Reset Keybinds</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="gamepad" data-i18n="shell.k434">Controller</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k435">Enable Controller</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cControllerEnabled" checked="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <span id="gamepad-status" class="gamepad-status" aria-live="polite"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" data-i18n="shell.k438">Press any controller button to start. Either stick aims (right stick wins); moving the mouse takes over. Keyboard and mouse stay live.</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <span id="gamepad-map-status" class="gamepad-status" aria-live="polite" data-i18n="shell.k441">Click a button, then press a controller button to bind it.</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k065">Split</td>
+                                        <td>
+                                            <button type="button" id="gpad-split" class="gamepad-map-btn" aria-pressed="false"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k221">Eject Mass</td>
+                                        <td>
+                                            <button type="button" id="gpad-eject" class="gamepad-map-btn" aria-pressed="false"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k222">Double Split (4x)</td>
+                                        <td>
+                                            <button type="button" id="gpad-doubleSplit" class="gamepad-map-btn" aria-pressed="false"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k223">Triple Split (8x)</td>
+                                        <td>
+                                            <button type="button" id="gpad-tripleSplit" class="gamepad-map-btn" aria-pressed="false"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k224">Quad Split (16x)</td>
+                                        <td>
+                                            <button type="button" id="gpad-quadSplit" class="gamepad-map-btn" aria-pressed="false"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k225">Quintuple Split (32x)</td>
+                                        <td>
+                                            <button type="button" id="gpad-split32" class="gamepad-map-btn" aria-pressed="false"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k226">Sextuple Split (64x)</td>
+                                        <td>
+                                            <button type="button" id="gpad-hexaSplit" class="gamepad-map-btn" aria-pressed="false"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k227">Septuple Split (128x)</td>
+                                        <td>
+                                            <button type="button" id="gpad-split128" class="gamepad-map-btn" aria-pressed="false"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k228">Octuple Split (256x)</td>
+                                        <td>
+                                            <button type="button" id="gpad-split256" class="gamepad-map-btn" aria-pressed="false"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k231">Line Split (Hold)</td>
+                                        <td>
+                                            <button type="button" id="gpad-lineSplit" class="gamepad-map-btn" aria-pressed="false"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k233">Multibox Switch (Tab)</td>
+                                        <td>
+                                            <button type="button" id="gpad-multiboxSwitch" class="gamepad-map-btn" aria-pressed="false"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k433">Multibox Toggle</td>
+                                        <td>
+                                            <button type="button" id="gpad-multiboxToggle" class="gamepad-map-btn" aria-pressed="false"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k220">Respawn</td>
+                                        <td>
+                                            <button type="button" id="gpad-respawn" class="gamepad-map-btn" aria-pressed="false"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k444">Open / Close Menu</td>
+                                        <td>
+                                            <button type="button" id="gpad-menu" class="gamepad-map-btn" aria-pressed="false"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <button type="button" id="btn-reset-gamepad-map" class="gota-btn" data-i18n="shell.k443">Reset controller buttons</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="main-themes" class="main-right-panel" style="display: none">
+                        <div class="title-text menu-title" data-i18n="shell.k111">Theme</div>
+                        <div class="options-container">
+                            <table class="options-table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="theme-toggle" data-i18n="shell.k238">Theme Toggle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k239">Enable Custom Theme</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cThemeEnabled">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k240">Disable Event Theme</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cDisableEventSkins">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="interface-colors" data-i18n="shell.k241">Interface Colors</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k242">Interface Foreground</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiForegroundColor" value="#ffffff">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k243">Interface Background</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiBackgroundColor" value="#ffffff">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k244">Interface Border</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiBorderColor">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k245">Menu Background</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiMenuBackgroundColor">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k246">Menu Title Background</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiMenuTitleBackgroundColor">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k247">Menu Sub Background</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiMenuSubBackgroundColor">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k248">Menu Sub Background 2</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiMenuSubBackground2Color">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k249">Button Color</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiButtonColor">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="tracer-lines" data-i18n="shell.k250">Tracer Lines</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k251">Show Tracer Lines</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cShowTracer">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="overflow-x: visible" data-balloon="Tracer line opacity (Default: 50%)" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k045">
+                                            <span data-i18n="shell.k416">Tracer Opacity:</span>
+                                            <input class="options-input" id="tracerOpacity" style="float: none" value="50">
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rTracerOpacity" min="10" max="100" value="50" step="1">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="overflow-x: visible" data-balloon="Tracer line color (Default: #ffffff)" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k046" data-i18n="shell.k252">Tracer Color:</td>
+                                        <td>
+                                            <input type="text" id="rTracerColor" data-coloris="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="overflow-x: visible" data-balloon="Tracer line thickness in pixels (Default: 2)" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k047">
+                                            <span data-i18n="shell.k417">Tracer Thickness:</span>
+                                            <input class="options-input" id="tracerThickness" style="float: none" value="2">
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rTracerThickness" min="1" max="16" value="2" step="1">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="pastel-theme" data-i18n="shell.k253">Pastel Theme</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k254">Pastel Mode</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cPastelMode">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="overflow-x: visible" data-balloon="Pastel intensity (Default: 50)" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k048">
+                                            <span data-i18n="shell.k418">Pastel Intensity:</span>
+                                            <input class="options-input" id="pastelIntensity" style="float: none" value="50">
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rPastelIntensity" min="0" max="100" value="50" step="1">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k255">Pastel Applies To</td>
+                                        <td>
+                                            <select id="sPastelApply">
+                                                <option value="ALL" data-i18n="shell.k157">All</option>
+                                                <option value="PARTY" data-i18n="shell.k088">Party</option>
+                                                <option value="SELF" data-i18n="shell.k158">Self</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="panel-opacity" data-i18n="shell.k256">Panel Opacity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" data-balloon="Leaderboard panel background opacity" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k049">
+                                            <span data-i18n="shell.k419">Leaderboard Opacity:</span>
+                                            <span id="leaderboardOpacity" data-i18n="shell.k257">100</span>%
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rLeaderboardOpacity" min="0" max="1" value="1" step=".01">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" data-balloon="Chat panel background opacity" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k050">
+                                            <span data-i18n="shell.k420">Chat Opacity:</span>
+                                            <span id="chatOpacity" data-i18n="shell.k257">100</span>%
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rChatOpacity" min="0" max="1" value="1" step=".01">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" data-balloon="Minimap panel background opacity" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k051">
+                                            <span data-i18n="shell.k421">Minimap Opacity:</span>
+                                            <span id="minimapOpacity" data-i18n="shell.k257">100</span>%
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rMinimapOpacity" min="0" max="1" value="1" step=".01">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="panel-blur" data-i18n="shell.k258">Panel Blur</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" data-balloon="Leaderboard panel blur (px)" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k052">
+                                            <span data-i18n="shell.k422">Leaderboard Blur:</span>
+                                            <span id="leaderboardBlur">2</span>px
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rLeaderboardBlur" min="0" max="50" value="2" step="1">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" data-balloon="Chat panel blur (px)" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k053">
+                                            <span data-i18n="shell.k423">Chat Blur:</span>
+                                            <span id="chatBlur">1</span>px
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rChatBlur" min="0" max="50" value="1" step="1">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" data-balloon="Minimap panel blur (px)" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k054">
+                                            <span data-i18n="shell.k424">Minimap Blur:</span>
+                                            <span id="minimapBlur">2</span>px
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rMinimapBlur" min="0" max="50" value="2" step="1">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="interface-highlights" data-i18n="shell.k259">Interface Highlights</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k260">Leaderboard Highlight</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiLeaderboardHighlightSelf">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k261">Leaderboard Highlight (Party)</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiLeaderboardHighlightParty">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k262">Party Leader Color</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiPartyLeaderColor">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="game" data-i18n="shell.k263">Game</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k264">Game Background</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiGameBackgroundColor">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k265">Game Border</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiGameBorderColor">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k266">Show A1/B1 Grid</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cShowGrid">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k267">Grid Style</td>
+                                        <td>
+                                            <select id="sGridStyle">
+                                                <option value="a1" data-i18n="shell.k268">A1 / B1 (4x4)</option>
+                                                <option value="none" data-i18n="shell.k076">None</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k269">Grid Color</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="gridColor" value="#ff0000">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <span data-i18n="shell.k425">Grid Opacity:</span>
+                                            <span id="gridOpacityLabel" data-i18n="shell.k270">80</span>%
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rGridOpacity" min="0" max="1" value="0.8" step="0.01">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" data-i18n="shell.k271">Grid Line Thickness</td>
+                                        <td colspan="2">
+                                            <input type="range" id="rGridLineThickness" min="1" max="16" value="1" step="1">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" data-i18n="shell.k272">Grid Columns</td>
+                                        <td colspan="2">
+                                            <input type="number" id="iGridCols" min="1" max="16" value="4">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" data-i18n="shell.k273">Grid Rows</td>
+                                        <td colspan="2">
+                                            <input type="number" id="iGridRows" min="1" max="16" value="4">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k274">Grid Labels</td>
+                                        <td>
+                                            <input type="checkbox" class="checkbox-options" id="cShowGridLabels" checked="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k275">Grid Label Font</td>
+                                        <td>
+                                            <select id="sGridLabelFont"></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k276">Grid Label Color</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="gridLabelColor" value="#ffffff">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" data-i18n="shell.k277">Grid Label Size</td>
+                                        <td colspan="2">
+                                            <input type="range" id="rGridLabelSize" min="8" max="300" value="150" step="1">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="food-colors" data-i18n="shell.k278">Food Colors</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="theme-food-colors-row">
+                                        <td colspan="4" class="theme-food-colors-cell">
+                                            <div class="theme-food-colors-panel">
+                                                <div class="theme-food-colors-toolbar">
+                                                    <span class="theme-food-colors-copy" data-i18n="shell.k279">Custom food colors for this theme</span>
+                                                    <div class="food-colors-controls">
+                                                        <input type="text" id="pFoodColors" data-coloris="">
+                                                        <button id="btnAddFoodColor" type="button" class="gota-btn food-colors-add-btn" data-i18n="shell.k055">Add</button>
+                                                    </div>
+                                                </div>
+                                                <div id="food-color-list"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="ui-colors" data-i18n="shell.k280">UI Colors</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k281">Success</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiGameColorSuccess">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k282">Warning</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiGameColorWarning">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" data-i18n="shell.k283">Error</td>
+                                        <td>
+                                            <input type="text" data-coloris="" id="uiGameColorError">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="custom-assets" data-i18n="shell.k284">Custom Assets</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4" class="theme-action-cell">
+                                            <button type="button" id="aCustomBackground" class="gota-btn theme-action-link custom-asset-skinner" data-theme-action-badge="Add" data-theme-action-state="empty" data-i18n-attr="data-theme-action-badge:shell.k055" data-i18n="shell.k285">Background Image</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="theme-action-cell">
+                                            <button type="button" id="aCustomSpike" class="gota-btn theme-action-link custom-asset-skinner" data-theme-action-badge="Add" data-theme-action-state="empty" data-i18n-attr="data-theme-action-badge:shell.k055" data-i18n="shell.k286">Virus Skin</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="theme-action-cell">
+                                            <button type="button" id="aCustomMother" class="gota-btn theme-action-link custom-asset-skinner" data-theme-action-badge="Add" data-theme-action-state="empty" data-i18n-attr="data-theme-action-badge:shell.k055" data-i18n="shell.k287">Mother Cell Skin</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="extra" data-i18n="shell.k288">Extra</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" data-balloon="Game border size. Default: 64" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k056">
+                                            <span data-i18n="shell.k426">Border Size:</span>
+                                            <span id="borderSize" data-i18n="shell.k289">64</span>
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rBorderSize" min="1" max="256" value="64" step="1">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" data-balloon="Custom background opacity" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k057">
+                                            <span data-i18n="shell.k427">BG Opacity:</span>
+                                            <span id="backgroundOpacity" data-i18n="shell.k257">100</span>%
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="range" id="rBackgroundOpacity" min="0" max="1" value="1" step=".01">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan="4" data-options-section-id="theme-actions" data-i18n-html="shell.k410">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            <button type="button" class="gota-btn" id="btn-theme-import" data-i18n="shell.k199">Import</button>
+                                        </td>
+                                        <td colspan="2">
+                                            <button type="button" class="gota-btn" id="btn-theme-export" data-i18n="shell.k200">Export</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="theme-import-help" data-i18n="runtime.theme.importHelp">Import accepts theme.json or Gota settings JSON. Use Options import for full settings.</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <p id="theme-import-status" class="theme-import-status" role="status" aria-live="polite"></p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <input id="theme-import" type="file" accept=".json,application/json" style="display: none">
+                        </div>
+                    </div>
+                    <div id="main-subpanel" class="main-right-panel" style="display: none">
+                        <div class="title-text menu-title" data-i18n="shell.k112">Cell Panel</div>
+                        <div class="options-container">
+                            <div id="subpanel-rules" style="display: block">
+                                <span class="title-text center" data-i18n="shell.k290">Locked Name Rules</span>
+                                <ul class="locked-name-rules">
+                                    <li data-i18n="shell.k291">The game server controls when your locked name can be changed again.</li>
+                                    <li data-i18n="shell.k292">Do not share your locked name with others.</li>
+                                    <li data-i18n="shell.k293">Do not imitate or impersonate staff, moderators or YouTubers.</li>
+                                    <li data-i18n="shell.k294">Do not defame, abuse, harass, stalk, threaten or otherwise violate the legal rights (such as rights of privacy and publicity) of others in the locked name or in chat.</li>
+                                    <li data-i18n="shell.k295">Do not use locked names to advertise websites. (Names like "Saku YT", "Sylveon YouTube" etc. are fine)</li>
+                                    <li data-i18n="shell.k296">No flaming, hate speech, bullying, harassing, stalking, or being overly creepy in the locked name or in chat.</li>
+                                    <li data-i18n="shell.k297">Locked names must be between 2 and 20 characters.</li>
+                                    <li data-i18n="shell.k298">Locked names can only contain letters (a-z), numbers (0-9) and spaces.</li>
+                                </ul>
+                                <button type="button" id="btn-subpanel-rules" class="gota-btn" data-i18n="shell.k299">Accept</button>
+                            </div>
+                            <div id="subpanel-content" style="display: none">
+                                <section class="subpanel-section subpanel-locked-name-card subpanel-name-dashboard" aria-labelledby="spLockedNameSectionLabel">
+                                    <div id="spLockedNameSectionLabel" class="subpanel-section-heading" data-i18n="shell.k300">Locked Name</div>
+                                    <div class="subpanel-locked-name-header">
+                                        <div class="subpanel-locked-name-copy">
+                                            <span id="spLockedNameLabel" class="subpanel-field-label" data-i18n="shell.k301">Current name</span>
+                                            <span id="spLockedName" class="subpanel-locked-name-value"></span>
+                                        </div>
+                                        <div class="subpanel-locked-name-actions">
+                                            <button type="button" id="btn-use-ln" class="gota-btn subpanel-action-btn" data-i18n="shell.k302">Use name</button>
+                                            <button type="button" id="btn-chg-ln" class="gota-btn subpanel-action-btn" data-i18n="shell.k303">Rename</button>
+                                        </div>
+                                    </div>
+                                    <div class="subpanel-locked-name-meta">
+                                        <div class="subpanel-locked-name-meta-row">
+                                            <span class="subpanel-field-label" data-i18n="shell.k304">Rename status</span>
+                                            <span id="spRenameStatus" class="subpanel-rename-status" data-state="unknown" data-i18n="shell.k305">Checking...</span>
+                                        </div>
+                                        <div class="subpanel-locked-name-meta-row">
+                                            <span class="subpanel-field-label" data-i18n="shell.k306">Last change</span>
+                                            <span id="spLastChange" data-i18n="shell.k307">Unknown</span>
+                                        </div>
+                                        <div class="subpanel-locked-name-meta-row">
+                                            <span class="subpanel-field-label" data-i18n="shell.k308">Expiry</span>
+                                            <span id="spExpiry" data-i18n="shell.k309">Never</span>
+                                        </div>
+                                    </div>
+                                    <p id="spRenameHint" class="subpanel-locked-name-hint" data-i18n="shell.k310">The game server controls locked-name rename availability.</p>
+                                    <div id="subpanel-locked-name-editor" class="subpanel-locked-name-editor" hidden="">
+                                        <label for="spLockedNameEditor" class="subpanel-field-label" data-i18n="shell.k311">New locked name</label>
+                                        <input type="text" class="gota-input" id="spLockedNameEditor" maxlength="20" spellcheck="false" autocomplete="off">
+                                        <div class="subpanel-locked-name-editor-actions">
+                                            <button type="button" id="btn-save-ln" class="gota-btn subpanel-action-btn" data-i18n="shell.k312">Save</button>
+                                            <button type="button" id="btn-cancel-ln" class="gota-btn subpanel-action-btn subpanel-action-btn-muted" data-i18n="shell.k313">Cancel</button>
+                                        </div>
+                                    </div>
+                                    <a class="subpanel-locked-name-link" href="https://gota.io/policies/locked-names/rules.html" target="_blank" rel="noopener" data-i18n="shell.k290">Locked Name Rules</a>
+                                </section>
+                                <section class="subpanel-section subpanel-cell-options-section" aria-labelledby="spOptionsSectionLabel">
+                                    <div id="spOptionsSectionLabel" class="subpanel-section-heading" data-i18n="shell.k314">Cell Options</div>
+                                    <table class="options-table subpanel-options-table">
+                                        <tbody>
+                                            <tr>
+                                                <td data-i18n="shell.k315">Skin Name</td>
+                                                <td>
+                                                    <input type="text" id="spSkinName">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-i18n="shell.k316">Ejected Skin</td>
+                                                <td>
+                                                    <select id="spEffect">
+                                                        <option value="0" data-i18n="shell.k076">None</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-i18n="shell.k317">Name Font</td>
+                                                <td>
+                                                    <select id="spNameFont">
+                                                        <option value="0" data-i18n="shell.k162">Default</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-i18n="shell.k318">Name Color</td>
+                                                <td>
+                                                    <input type="text" id="spNameColor" data-coloris="">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-i18n="shell.k319">Chat Color</td>
+                                                <td>
+                                                    <input type="text" id="spChatColor" data-coloris="">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-i18n="shell.k320">Cell Color</td>
+                                                <td>
+                                                    <input type="text" id="spCellColor" data-coloris="">
+                                                    <button type="button" id="btn-clearSPCellColor" class="gota-btn" style="margin-top: 6px" data-i18n="shell.k376">Clear</button>
+                                                </td>
+                                            </tr>
+                                            <tr class="subpanel-options-toggle-row">
+                                                <td data-i18n="shell.k321">Lower Name</td>
+                                                <td>
+                                                    <input type="checkbox" id="spLowerName">
+                                                </td>
+                                            </tr>
+                                            <tr class="subpanel-options-action-row">
+                                                <td colspan="2">
+                                                    <button type="button" id="btn-updateSP" class="gota-btn" data-i18n="shell.k322">Save changes</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="main-social" class="main" style="display: none">
+            <div id="main-friends" class="main-left main-divider main-panel">
+                <div id="social-back-button" class="back-button" data-balloon="Go back to main menu" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k059" data-i18n-html="shell.k323">
+                    <i class="material-icons" aria-hidden="true" data-i18n="shell.k324">‹</i>
+                </div>
+                <div class="title-text menu-title" data-i18n="shell.k325">Friends</div>
+                <div id="social-friends-info" data-i18n-html="shell.k326">
+                    <span>
+                        <span data-i18n="shell.k430">You have</span>
+                        <span id="social-friends-count">0</span>/25 friends
+                    </span>
+                    <span>
+                        <span data-i18n="shell.k431">You currently have</span>
+                        <span id="social-online-friends-count" data-i18n="shell.k327">0 online</span> friends
+                    </span>
+                </div>
+                <div id="social-friends" class="menu-sub-bg">
+                    <menu class="user-list"></menu>
+                    <menu class="user-list"></menu>
+                </div>
+                <div id="social-actions">
+                    <div id="social-uid-container">
+                        <span class="social-uid-label" data-i18n="shell.k328">Your User ID</span>
+                        <div class="social-uid-row">
+                            <input type="text" class="gota-input" id="social-uid-input" readonly="" spellcheck="false">
+                            <button class="gota-btn" id="btn-copy-social-uid" type="button" data-i18n="shell.k329">Copy</button>
+                        </div>
+                        <span id="social-uid" class="social-uid-hidden"></span>
+                    </div>
+                    <button type="button" class="gota-btn" id="btn-add-friend" data-i18n="shell.k330">Add a Friend</button>
+                </div>
+            </div>
+            <div class="main-content main-divider">
+                <div id="main-discord" class="main-panel center">
+                    <div class="title-text menu-title" data-i18n="shell.k331">Discord Linking</div>
+                    <div class="main-mini-container">
+                        <p data-i18n-html="shell.k332">
+                            Link your Discord account to recieve exclusive rewards on our <a href="https://gota.io/discord" class="stealth-link" data-i18n="shell.k333">official server</a>! Linking your account will also join you to our server!
+                        </p>
+                        <p id="discordLinkStatus" style="display: none" data-i18n="shell.k334">Your account is currently not linked.</p>
+                        <div class="discord-login-container">
+                            <a class="discord-login-button" id="discordLink" href="#" data-i18n="shell.k335">Link with Discord</a>
+                            <a class="discord-login-button" id="discordUnlink" style="display: none" href="#" data-i18n="shell.k336">Unlink Discord</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="main-tokens" class="main-panel center">
+                    <div class="title-text menu-title" data-i18n="shell.k337">Redeem Tokens</div>
+                    <div class="main-mini-container">
+                        <p data-i18n="shell.k338">Visit our store for more information on receiving a locked name!</p>
+                        <small id="token-amount"></small>
+                    </div>
+                    <form id="redeem-tokens" class="gota-input-group" action="#" style="display: none">
+                        <input type="text" class="gota-input" id="redeem-name" placeholder="Name" minlength="3" maxlength="20" required="" data-i18n-attr="placeholder:shell.k010">
+                        <input type="number" class="gota-input" id="redeem-spend" placeholder="Tokens" min="0" required="" style="width: 35%" data-i18n-attr="placeholder:shell.k060">
+                        <input type="submit" class="gota-btn" value="Redeem" style="margin: 15px" data-i18n-attr="value:shell.k061">
+                        <br>
+                        <a href="https://gota.io/policies/locked-names/rules.html" target="_blank" rel="noopener" style="color: white" data-i18n="shell.k290">Locked Name Rules</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="main-scrimmage" class="main-panel interface-color" style="display: none">
+            <div id="scrimmage-menu" class="scrimmage-full" style="display: block">
+                <div class="title-text menu-title" data-i18n="shell.k339">Scrimmage</div>
+                <div class="scrimmage-content">
+                    <div class="scrimmage-left scrimmage-main-left">
+                        <div class="scrimmage-mode-box menu-sub-bg">
+                            <span data-i18n="shell.k126">Gamemode</span>
+                            <br>
+                            <select id="scrimmage-mode-select" class="scrimmage-select"></select>
+                        </div>
+                        <div id="scrimmage-custom-btn-container" class="scrimmage-mode-box scrimmage-main-left menu-sub-bg">
+                            <span data-i18n="shell.k340">Custom Game</span>
+                            <button type="button" id="btn-custom-create" class="gota-btn" data-i18n="shell.k341">Create</button>
+                            <button type="button" id="btn-custom-lobbies" class="gota-btn" data-i18n="shell.k342">Join</button>
+                        </div>
+                    </div>
+                    <div id="scrimmage-mode-info" class="scrimmage-mode-box scrimmage-right menu-sub-bg"></div>
+                </div>
+                <div style="text-align: center; height: 30px">
+                    <button type="button" id="btn-queue" class="gota-btn" data-i18n="shell.k343">Queue</button>
+                </div>
+            </div>
+            <div id="scrimmage-custom" class="scrimmage-full" style="display: none">
+                <div class="title-text menu-title" data-i18n="shell.k340">Custom Game</div>
+                <div class="scrimmage-content">
+                    <div class="scrimmage-left">
+                        <div id="scrimmage-options-leader" class="scrimmage-mode-box menu-sub-bg">
+                            <span data-i18n="shell.k344">Map</span>
+                            <br>
+                            <select id="scrimmage-map" class="scrimmage-select custom-game"></select>
+                            <br>
+                            <span data-i18n="shell.k345">Modifier</span>
+                            <br>
+                            <select id="scrimmage-mapmode" class="scrimmage-select custom-game"></select>
+                            <br>
+                            <span data-i18n="shell.k346">Map Size</span>
+                            <br>
+                            <select id="scrimmage-mapsize" class="scrimmage-select custom-game"></select>
+                            <br>
+                            <span data-i18n="shell.k347">Starting Mass</span>
+                            <br>
+                            <input id="scrimmage-startmass" class="custom-game">
+                            <br>
+                            <span data-i18n="shell.k348">Virus Density (%)</span>
+                            <br>
+                            <input id="scrimmage-virusDensity" class="custom-game">
+                            <br>
+                            <span data-i18n="shell.k349">Respawn Delay (Sec)</span>
+                            <br>
+                            <input id="scrimmage-respawnDelay" class="custom-game">
+                            <br>
+                            <input type="checkbox" id="scrimmage-autoSplit" class="custom-game">
+                            <span data-i18n="shell.k350">Auto Splits</span>
+                            <br>
+                            <br>
+                            <input type="checkbox" id="scrimmage-lockteams" class="custom-game">
+                            <span data-i18n="shell.k351">Lock Teams</span>
+                            <br>
+                            <br>
+                            <input type="checkbox" id="scrimmage-public" class="custom-game">
+                            <span data-i18n="shell.k352">Public</span>
+                            <br>
+                            <input type="checkbox" id="scrimmage-password" class="custom-game">
+                            <span data-i18n="shell.k353">Password</span>
+                        </div>
+                    </div>
+                    <div id="scrimmage-custom-playerlist" class="scrimmage-mode-box scrimmage-right menu-sub-bg">
+                        <table class="scrimmage-list-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 70%" data-i18n-html="shell.k123">
+                                        <span data-i18n="shell.k124">Players</span>
+                                    </th>
+                                    <th style="width: 30%" data-i18n-html="shell.k354">
+                                        <span data-i18n="shell.k355">Team</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="scrimmage-custom-players"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="text-align: center; height: 30px">
+                    <button type="button" id="btn-custom-start" class="gota-btn" data-i18n="shell.k356">Start</button>
+                    <button type="button" id="btn-custom-return" class="gota-btn" data-i18n="shell.k357">Back</button>
+                </div>
+            </div>
+            <div id="scrimmage-lobbies" class="scrimmage-full" style="display: none">
+                <div class="title-text menu-title" data-i18n="shell.k358">Custom Game Browser</div>
+                <div class="scrimmage-content menu-sub-bg">
+                    <div id="scrimmage-lobbies-list" class="scrimmage-mode-box scrimmage-right">
+                        <table class="scrimmage-list-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 34%" data-i18n-html="shell.k122">
+                                        <span data-i18n="shell.k010">Name</span>
+                                    </th>
+                                    <th style="width: 24%" data-i18n-html="shell.k359">
+                                        <span data-i18n="shell.k360">Leader</span>
+                                    </th>
+                                    <th style="width: 16%" data-i18n-html="shell.k361">
+                                        <span data-i18n="shell.k344">Map</span>
+                                    </th>
+                                    <th style="width: 16%" data-i18n-html="shell.k362">
+                                        <span data-i18n="shell.k363">Mode</span>
+                                    </th>
+                                    <th style="width: 10%" data-i18n-html="shell.k123">
+                                        <span data-i18n="shell.k124">Players</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="scrimmage-lobbies-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="text-align: center; height: 30px">
+                    <button type="button" id="btn-lobbies-join" class="gota-btn" data-i18n="shell.k342">Join</button>
+                    <button type="button" id="btn-lobbies-refresh" class="gota-btn" data-i18n="shell.k364">Refresh</button>
+                    <button type="button" id="btn-lobbies-return" class="gota-btn" data-i18n="shell.k357">Back</button>
+                </div>
+            </div>
+        </div>
+        <div class="popup-container">
+            <div id="popup-party" class="popup-panel" style="display: none">
+                <div class="title-text menu-title" data-i18n="shell.k365">Party Invite</div>
+                <div id="popup-party-text"></div>
+                <div class="popup-buttons">
+                    <button type="button" id="btn-accept" class="gota-btn" data-i18n="shell.k299">Accept</button>
+                    <button type="button" id="btn-decline" class="gota-btn" data-i18n="shell.k366">Decline</button>
+                </div>
+            </div>
+            <div id="popup-party-code" class="popup-panel" style="display: none">
+                <div class="title-text menu-title" data-i18n="shell.k367">Party Code</div>
+                <div class="gota-input-group" id="popup-party-code-content">
+                    <input type="text" id="party-code-input" readonly="" aria-label="Party code" data-i18n-attr="aria-label:shell.k062">
+                    <button type="button" aria-label="Copy party code" data-i18n-attr="aria-label:shell.k063" data-i18n="shell.k329">Copy</button>
+                </div>
+            </div>
+            <div id="popup-account-username" class="popup-panel" style="display: none">
+                <div class="back-button" data-balloon="Go back to main menu" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k059" data-i18n-html="shell.k323">
+                    <i class="material-icons" aria-hidden="true" data-i18n="shell.k324">‹</i>
+                </div>
+                <div class="title-text menu-title" data-i18n="shell.k368">Edit Username</div>
+                <div class="gota-input-group"></div>
+                <div class="gota-input-group">
+                    <input type="text" id="account-username-input" placeholder="New Username" autocomplete="off" maxlength="29" minlength="3" data-lpignore="true" data-i18n-attr="placeholder:shell.k064">
+                    <button type="button" id="account-set-username-btn" class="gota-btn" data-i18n="shell.k369">Set</button>
+                </div>
+                <div class="center" data-i18n-html="shell.k370">
+                    <i data-i18n="shell.k371">Woah! You can only change your username every 14 days.</i>
+                    <a href="https://gota.io/policies/usernames/rules.html" class="stealth-link" target="_blank" rel="noopener" data-i18n="shell.k372">Username Rules</a>
+                </div>
+            </div>
+            <div id="popup-profile" class="popup-panel" style="display: none">
+                <div class="profile-title-container">
+                    <img id="profile-avatar" class="avatar" alt="">
+                    <div class="title-text" id="profile-name">
+                        <span id="profile-title"></span>&nbsp;<span id="profile-username"></span>
+                    </div>
+                    <span id="profile-clan-membership"></span>
+                    <span id="profile-level"></span>
+                </div>
+                <div class="divider title-divider"></div>
+                <div class="popup-profile-filler"></div>
+                <div class="profile-actions">
+                    <button type="button" id="profile-close-btn" class="gota-btn" data-i18n="shell.k373">Close</button>
+                </div>
+            </div>
+            <div id="popup-titles" class="popup-panel" style="display: none">
+                <div id="titles-close-btn" class="back-button" data-balloon="Go back to main menu" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k059" data-i18n-html="shell.k323">
+                    <i class="material-icons" aria-hidden="true" data-i18n="shell.k324">‹</i>
+                </div>
+                <div class="title-text menu-title" data-i18n="shell.k113">Titles</div>
+                <div class="popup-content">
+                    <div class="gota-input-group">
+                        <select id="account-titles" style="display: none">
+                            <option value="0" data-i18n="shell.k374">Default Title</option>
+                        </select>
+                    </div>
+                    <div id="titles-list"></div>
+                </div>
+            </div>
+            <div id="popup-changelog" class="popup-panel" style="display: none">
+                <div class="back-button" data-balloon="Go back to main menu" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k059" data-i18n-html="shell.k323">
+                    <i class="material-icons" aria-hidden="true" data-i18n="shell.k324">‹</i>
+                </div>
+                <div class="title-text menu-title" data-i18n="shell.k114">Changelog</div>
+                <div class="popup-content">
+                    <div id="changelog-content" class="changelog-content" style="margin-top: 12px; overflow: auto; max-height: 60vh" data-i18n="shell.k375">Loading changelog...</div>
+                </div>
+                <div class="popup-buttons">
+                    <button type="button" id="changelog-close-btn" class="gota-btn" data-i18n="shell.k373">Close</button>
+                </div>
+            </div>
+            <div id="popup-asset-skinner" class="popup-panel" style="display: none">
+                <div class="back-button" data-balloon="Go back to main menu" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k059" data-i18n-html="shell.k323">
+                    <i class="material-icons" aria-hidden="true" data-i18n="shell.k324">‹</i>
+                </div>
+                <div class="title-text menu-title" data-i18n="shell.k369">Set</div>
+                <div class="center asset-skinner-center">
+                    <input type="text" class="gota-input" id="input-asset-skinner" autocomplete="off" data-lpignore="true">
+                    <div>
+                        <button type="button" id="btn-custom-asset-clear" class="gota-btn" data-i18n="shell.k376">Clear</button>
+                        <button type="button" id="btn-custom-asset-set" class="gota-btn" data-i18n="shell.k369">Set</button>
+                    </div>
+                </div>
+                <div class="center asset-skinner-last" data-i18n-html="shell.k377">
+                    <i data-i18n="shell.k378">Please enter the image url or drag an image to this window.</i>
+                </div>
+            </div>
+            <div id="popup-chat-tab-editor" class="popup-panel" style="display: none">
+                <div class="back-button" data-balloon="Go back to main menu" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k059" data-i18n-html="shell.k323">
+                    <i class="material-icons" aria-hidden="true" data-i18n="shell.k324">‹</i>
+                </div>
+                <div class="title-text menu-title" data-i18n="shell.k379">Chat Tabs Editor</div>
+                <table class="popup-chat-tab-editor-table">
+                    <thead>
+                        <tr>
+                            <th colspan="5"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="3" data-i18n="shell.k380">Chat Tab</td>
+                            <td colspan="2">
+                                <select id="cte-tab-selector">
+                                    <option value="All" data-i18n="shell.k157">All</option>
+                                    <option value="Party" data-i18n="shell.k088">Party</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" data-i18n="shell.k010">Name</td>
+                            <td colspan="2">
+                                <input type="text" class="gota-input" autocomplete="off" id="cte-tab-name">
+                            </td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <th colspan="5" data-i18n="shell.k381">Allowed Chat Types</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="4" data-i18n="shell.k382">All Chat</td>
+                            <td>
+                                <input type="checkbox" id="cte-type-all">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" data-i18n="shell.k383">Party Chat</td>
+                            <td>
+                                <input type="checkbox" id="cte-type-party">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" data-i18n="shell.k384">Whispers</td>
+                            <td>
+                                <input type="checkbox" id="cte-type-whisper">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" data-i18n="shell.k385">System Messages</td>
+                            <td>
+                                <input type="checkbox" id="cte-type-system">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" data-i18n="shell.k386">Admin Announcements</td>
+                            <td>
+                                <input type="checkbox" id="cte-type-admin">
+                            </td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <th colspan="5" data-i18n="shell.k288">Extra</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="4" data-i18n="shell.k387">Max Messages</td>
+                            <td>
+                                <input type="text" class="gota-input" autocomplete="off" id="cte-max-messages">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="center popup-chat-tab-editor-last">
+                    <button type="button" id="btn-chat-tab-editor-add" class="gota-btn" data-i18n="shell.k055">Add</button>
+                    <button type="button" id="btn-chat-tab-editor-remove" class="gota-btn" data-i18n="shell.k388">Remove</button>
+                    <button type="button" id="btn-chat-tab-editor-update" class="gota-btn" data-i18n="shell.k389">Update</button>
+                </div>
+            </div>
+            <div id="popup-message" class="popup-panel" style="display: none">
+                <div class="back-button" data-balloon="Go back to main menu" data-balloon-pos="up" data-i18n-attr="data-balloon:shell.k059" data-i18n-html="shell.k323">
+                    <i class="material-icons" aria-hidden="true" data-i18n="shell.k324">‹</i>
+                </div>
+                <div id="popup-message-title" class="title-text menu-title" data-i18n="shell.k390">Gota Alert</div>
+                <div id="popup-message-content"></div>
+                <div class="profile-actions">
+                    <button type="button" id="popup-message-read-btn" class="gota-btn" data-i18n="shell.k391">Mark as read</button>
+                </div>
+            </div>
+        </div>
+        <div id="context-menu" style="display: none" selected="0" party="-1">
+            <ul class="context-list">
+                <li id="context-name"></li>
+                <li id="menu-invite" class="context-action" data-i18n-html="shell.k394">
+                    <span data-i18n="shell.k395">Invite</span>
+                </li>
+                <li id="menu-pu_pr" class="context-action" data-i18n-html="shell.k396">
+                    <span data-i18n="shell.k352">Public</span>
+                </li>
+                <li id="menu-promote" class="context-action" data-i18n-html="shell.k397">
+                    <span data-i18n="shell.k398">Promote</span>
+                </li>
+                <li id="menu-whisper" class="context-action" data-i18n-html="shell.k399">
+                    <span data-i18n="shell.k400">Whisper</span>
+                </li>
+                <li id="menu-profile" class="context-action" data-i18n-html="shell.k401">
+                    <span data-i18n="shell.k101">Profile</span>
+                </li>
+                <li id="menu-kick" class="context-action" data-i18n-html="shell.k402">
+                    <span data-i18n="shell.k403">Kick</span>
+                </li>
+                <li id="menu-spectate" class="context-action" data-i18n-html="shell.k404">
+                    <span data-i18n="shell.k107">Spectate</span>
+                </li>
+                <li id="menu-block" class="context-action" data-i18n-html="shell.k405">
+                    <span data-i18n="shell.k406">Block</span>
+                </li>
+            </ul>
+        </div>
+        <div id="touch_controls">
+            <div id="joystick"></div>
+            <div id="touch_buttons">
+                <button type="button" id="button_split" class="touch_button" aria-label="Split" data-i18n-attr="aria-label:shell.k065">S</button>
+                <button type="button" id="button_eject" class="touch_button" aria-label="Eject mass" data-i18n-attr="aria-label:shell.k066">E</button>
+                <button type="button" id="button_double" class="touch_button" aria-label="Double split" data-i18n-attr="aria-label:shell.k067">D</button>
+                <button type="button" id="button_triple" class="touch_button" aria-label="Triple split" data-i18n-attr="aria-label:shell.k068">T</button>
+                <button type="button" id="button_quad" class="touch_button" aria-label="Quad split" data-i18n-attr="aria-label:shell.k069">Q</button>
+                <button type="button" id="button_multibox_switch" class="touch_button touch_button_mb" aria-label="Switch multibox view" style="display:none" data-i18n-attr="aria-label:shell.k070">M</button>
+            </div>
+        </div>
+        <script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="abfc963bf54e07cb8a82f55a-|49" defer></script>
+        <script>
+            window.__CF$cv$params = {
+                r: 'a5d2325cfb4c3273',
+                t: 'MTc5NTEyMjU3NA==',
+                u: '01a057cc3d607f10bf40e3ae8807624b',
+                ut: 'iWEzy6idKS.7FMAUweuu8qruCKYsox3oW0989tTd8sk-1795122574-1.2.1.1-WRjCjCsoCOogFnzIDr5qGQhytXIBFlzDIaFUSO1J4wFwj_67wv9Q0k2XNAlSMVOJg7W_y_sQbPofMLVVWJvxP33DnhRcrnBodCrrRAPCoY0',
+                i: 60
+            };
+            (function() {
+                if (!document.body)
+                    return;
+                var l = window.location, o;
+                try {
+                    o = new URL(l.origin).origin
+                } catch (e) {
+                    try {
+                        o = new URL(new URL(l.href).origin).origin
+                    } catch (e) {
+                        o = ''
+                    }
+                }
+                var u = '/cdn-cgi/challenge-platform/scripts/precursor/main.js?ray=a5d2325cfb4c3273'
+                  , s = document.createElement('script');
+                s.src = o ? new URL(u,o).href : u;
+                document.head.appendChild(s);
+            }
+            )();
+        </script>
+        <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"ed5742fb141f4b3db3ac668f702d222e","spa":2}' crossorigin="anonymous"></script>
+        <script type="module" src="./assets/js/rainbow.js"></script>
+    </body>
+</html>
